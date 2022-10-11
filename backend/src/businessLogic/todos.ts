@@ -1,5 +1,5 @@
 import { TodosAccess } from '../helpers/todosAcess'
-// import { AttachmentUtils } from '../helpers/attachmentUtils';
+import { AttachmentUtils } from '../helpers/attachmentUtils';
 import { TodoItem } from '../models/TodoItem'
 import { CreateTodoRequest } from '../requests/CreateTodoRequest'
 import { UpdateTodoRequest } from '../requests/UpdateTodoRequest'
@@ -8,7 +8,7 @@ import * as uuid from 'uuid'
 
 // TODO: Implement businessLogic
 const todosAccess = new TodosAccess()
-// const attachmentUtils = new AttachmentUtils()
+const attachmentUtils = new AttachmentUtils()
 
 const bucketName = process.env.ATTACHMENT_S3_BUCKET
 const urlExpiration = process.env.SIGNED_URL_EXPIRATION
@@ -34,8 +34,8 @@ export const createTodo = async (createTodoRequest: CreateTodoRequest, userId: s
     return newTodo
 }
 
-export const getTodosForUser = async (userId: string) => {
-    return await todosAccess.getTodosForUser(userId)
+export const getTodos = async (userId: string) => {
+    return await todosAccess.getTodos(userId)
 }
 
 export const updateTodo = async (userId: string, todoId: string, updatedTodo: UpdateTodoRequest) => {
@@ -45,4 +45,8 @@ export const updateTodo = async (userId: string, todoId: string, updatedTodo: Up
 
 export const deleteTodo = async (todoId: string, userId: string): Promise<void> => {
     return await todosAccess.deleteTodo(todoId, userId)
+}
+
+export const generateUploadUrl = async (todoId: string): Promise<string> => {
+    return await attachmentUtils.getUploadUrl(bucketName, todoId, urlExpiration)
 }

@@ -26,18 +26,7 @@ export class TodosAccess {
         }).promise()
     }
 
-    async deleteTodo(todoId: string, userId: string){
-        logger.info('Deleting todo item '+todoId)
-        await this.docClient.delete({
-            TableName: this.todosTable,
-            Key: {
-                userId: userId,
-                todoId: todoId
-            }
-        }).promise()
-    }
-
-    async getTodosForUser(userId: string){
+    async getTodos(userId: string){
         const result = await this.docClient.query({
             TableName: this.todosTable,
             IndexName: this.createdAtIndex,
@@ -71,6 +60,17 @@ export class TodosAccess {
         logger.info('Todo Item updated', updatedTodo)
 
         return updatedTodo
+    }
+
+    async deleteTodo(todoId: string, userId: string){
+        logger.info('Deleting todo item '+todoId)
+        await this.docClient.delete({
+            TableName: this.todosTable,
+            Key: {
+                userId: userId,
+                todoId: todoId
+            }
+        }).promise()
     }
 }
   
