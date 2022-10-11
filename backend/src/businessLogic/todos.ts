@@ -42,3 +42,7 @@ export const updateTodo = async (userId: string, todoId: string, updatedTodo: Up
     logger.info('calling update todo in todosAccess', updateTodo)
     return await todosAccess.updateTodo(userId, todoId, updatedTodo)
 }
+
+export const deleteTodo = async (todoId: string, userId: string): Promise<void> => {
+    return await todosAccess.deleteTodo(todoId, userId)
+}
