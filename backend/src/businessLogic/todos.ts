@@ -2,7 +2,7 @@ import { TodosAccess } from '../helpers/todosAcess'
 // import { AttachmentUtils } from '../helpers/attachmentUtils';
 import { TodoItem } from '../models/TodoItem'
 import { CreateTodoRequest } from '../requests/CreateTodoRequest'
-// import { UpdateTodoRequest } from '../requests/UpdateTodoRequest'
+import { UpdateTodoRequest } from '../requests/UpdateTodoRequest'
 import { createLogger } from '../utils/logger'
 import * as uuid from 'uuid'
 
@@ -36,4 +36,9 @@ export const createTodo = async (createTodoRequest: CreateTodoRequest, userId: s
 
 export const getTodosForUser = async (userId: string) => {
     return await todosAccess.getTodosForUser(userId)
+}
+
+export const updateTodo = async (userId: string, todoId: string, updatedTodo: UpdateTodoRequest) => {
+    logger.info('calling update todo in todosAccess', updateTodo)
+    return await todosAccess.updateTodo(userId, todoId, updatedTodo)
 }
