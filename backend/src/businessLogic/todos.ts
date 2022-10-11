@@ -33,3 +33,7 @@ export const createTodo = async (createTodoRequest: CreateTodoRequest, userId: s
 
     return newTodo
 }
+
+export const getTodosForUser = async (userId: string) => {
+    return await todosAccess.getTodosForUser(userId)
+}
